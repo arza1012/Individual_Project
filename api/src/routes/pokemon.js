@@ -5,8 +5,10 @@ const axios = require("axios");
 const { getAllPokemons } = require("../utils/utils.js");
 
 router.get("/", async (req, res) => {
+  console.log("testssss");
   try {
     const { name } = req.query;
+    console.log("name", name, req);
     if (name) {
       //searching in myDB
       const pokemonByName = await Pokemons.findOne({ where: { name } });
@@ -27,12 +29,18 @@ router.get("/", async (req, res) => {
 
     const apiPokemon = await getAllPokemons();
 
+    console.log("apiPokemon", apiPokemon);
+
     //get all pokemons from myDB
     const dbPokemons = await Pokemons.findAll();
 
+    console.log("dbPokemons", dbPokemons);
+
     const combinedPokemon = [...dbPokemons, ...apiPokemon];
 
-    return res.status(200).send(combinedPokemon);
+    console.log("combinedPokemon", combinedPokemon);
+
+    res.status(200).send(combinedPokemon);
   } catch (error) {
     res.status(500).send("Pokemon no encontrado");
   }
