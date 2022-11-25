@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPokemon } from "../../actions";
 import PokemonCard from "../PokemonCard/PokemonCard";
 import Pagination from "../Pagination/pagination";
+import { Link } from "react-router-dom";
 
 const charactersPerPage = 12;
 
@@ -41,13 +42,15 @@ export default function Home() {
       </div>
       {currentCharacters?.map((p) => {
         return (
-          <PokemonCard
-            id={p.id}
-            key={p.id}
-            name={p.name}
-            image={p.image}
-            types={p.types}
-          />
+          <Link to={`/home/${p.id}`}>
+            <PokemonCard
+              id={p.id}
+              key={p.id}
+              name={p.name}
+              image={p.image}
+              types={p.types}
+            />
+          </Link>
         );
       })}
       <div>

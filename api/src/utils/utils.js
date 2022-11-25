@@ -20,17 +20,18 @@ async function getAllPokemons() {
       let pokemon = {};
       pokemon["id"] = p.id;
       pokemon["name"] = p.name;
-      pokemon["height"] = p.height;
-      pokemon["weight"] = p.weight;
-      pokemon["life"] = p.stats.find((s) => s.stat.name === "hp").base_stat;
-      pokemon["attack"] = p.stats.find(
-        (s) => s.stat.name === "attack"
-      ).base_stat;
-      pokemon["defense"] = p.stats.find(
-        (s) => s.stat.name === "defense"
-      ).base_stat;
       pokemon["types"] = p.types.map((t) => t.type.name);
       pokemon["image"] = p.sprites.other.home.front_default;
+      // pokemon["height"] = p.height;
+      // pokemon["weight"] = p.weight;
+      // pokemon["life"] = p.stats.find((s) => s.stat.name === "hp").base_stat;
+      // pokemon["attack"] = p.stats.find(
+      //   (s) => s.stat.name === "attack"
+      // ).base_stat;
+      // pokemon["defense"] = p.stats.find(
+      //   (s) => s.stat.name === "defense"
+      // ).base_stat;
+
       return pokemon;
     });
   } catch (e) {
@@ -38,29 +39,29 @@ async function getAllPokemons() {
   }
 }
 
-async function getPokemonByName(name) {
-  console.log("getPokemonByName", name);
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+async function getPokeapiByIdentifier(value) {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${value}`);
   const response = await res.json();
 
   let pokemon = {};
   pokemon["id"] = response.id;
   pokemon["name"] = response.name;
-  pokemon["height"] = response.height;
-  pokemon["weight"] = response.weight;
-  pokemon["life"] = response.stats.find((s) => s.stat.name === "hp").base_stat;
+  pokemon["height"] = response.height * 10;
+  pokemon["weight"] = response.weight / 10;
+  pokemon["hp"] = response.stats.find((s) => s.stat.name === "hp").base_stat;
   pokemon["attack"] = response.stats.find(
     (s) => s.stat.name === "attack"
   ).base_stat;
   pokemon["defense"] = response.stats.find(
     (s) => s.stat.name === "defense"
   ).base_stat;
+  pokemon["speed"] = response.stats.find(
+    (s) => s.stat.name === "speed"
+  ).base_stat;
   pokemon["types"] = response.types.map((t) => t.type.name);
   pokemon["image"] = response.sprites.other.home.front_default;
-
-  console.log("pokemon", pokemon);
 
   return pokemon;
 }
 
-module.exports = { getAllPokemons, getPokemonByName };
+module.exports = { getAllPokemons, getPokeapiByIdentifier };

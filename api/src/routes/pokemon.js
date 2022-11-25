@@ -3,7 +3,7 @@ const { Pokemons, Types } = require("../db.js");
 const fetch = require("node-fetch");
 const router = Router();
 const axios = require("axios");
-const { getAllPokemons, getPokemonByName } = require("../utils/utils.js");
+const { getAllPokemons, getPokeapiByIdentifier } = require("../utils/utils.js");
 
 router.get("/", async (req, res) => {
   try {
@@ -18,9 +18,7 @@ router.get("/", async (req, res) => {
         return res.status(200).send(pokemonByName);
       }
       //search in pokeapi
-      console.log("name", name);
-      const apiPokemonName = await getPokemonByName(name);
-      console.log("pokemonName", apiPokemonName);
+      const apiPokemonName = await getPokeapiByIdentifier(name);
 
       if (apiPokemonName) {
         return res.status(200).send(apiPokemonName);
@@ -46,15 +44,16 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("idback", id);
 
     if (id) {
       //search in pokeapi
       try {
-        const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${id}`
-        );
-        if (response?.data) {
-          return res.status(200).json(response.data);
+        const apiPokemonId = await getPokeapiByIdentifier(id);
+        console.log("apiPokemonId", apiPokemonId);
+
+        if (apiPokemonId) {
+          return res.status(200).json(apiPokemonId);
         }
       } catch (e) {
         console.error(e);

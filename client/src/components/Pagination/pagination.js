@@ -9,7 +9,7 @@ export default function Pagination({ charactersPerPage, pokemon, nextPage }) {
       pageNums.push(i);
     }
     setPageNumbers(pageNums);
-  }, [pokemon]);
+  }, [pokemon, charactersPerPage]);
 
   return (
     <nav>

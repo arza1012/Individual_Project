@@ -1,20 +1,39 @@
-import React from "react";
-// import * as actions from "./../../redux/actions/index";
-// import { useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPokemonDetail } from "../../actions";
+import { Link, useParams } from "react-router-dom";
 
-const PokemonDetails = (props) => {
-  //   const dispatch = useDispatch();
-  //   const id = props.match.params.id
-  //   const movie = useSelector((state) => state.movieDetail)
-  //   React.useEffect(() => {
-  //     dispatch(actions.getMovieDetail(id))
-  //   }, [dispatch, id])
-  //   return (
-  //     <div>
-  //       {movie.name}, {movie.director}, {movie.description}, {movie.releaseYear}
-  //     </div>
-  //   );
-};
+export default function PokemonDetails() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const pokemon = useSelector((state) => state.pokemon.pokemons);
+  useEffect(() => {
+    const pokemonDetails = async () => {
+      dispatch(getPokemonDetail(id));
+    };
+    pokemonDetails();
+  }, [dispatch, id]);
 
-export default PokemonDetails;
+  if (pokemon) {
+    return (
+      <div>
+        <h1>Soy {pokemon.name}!</h1>
+        <p>#{pokemon.id}</p>
+        <img src={pokemon.image} alt={pokemon.name} />
+        <p>Type: {pokemon.types}</p>
+        <p>Base Stats</p>
+        <p>hp: {pokemon.hp}</p>
+        <p>attack: {pokemon.attack}</p>
+        <p>defense: {pokemon.defense}</p>
+        <p>speed: {pokemon.speed}</p>
+        <p>height: {pokemon.height} cm</p>
+        <p>weight: {pokemon.weight} kg</p>
+        <Link to="/home">
+          <button>Back</button>
+        </Link>
+      </div>
+    );
+  } else {
+    return <> </>;
+  }
+}
