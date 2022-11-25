@@ -1,44 +1,41 @@
 const { Router } = require("express");
-const { Pokemons } = require("../db.js");
+const { Pokemons, Types } = require("../db.js");
+const fetch = require("node-fetch");
 const router = Router();
 const axios = require("axios");
-const { getAllPokemons } = require("../utils/utils.js");
+const { getAllPokemons, getPokemonByName } = require("../utils/utils.js");
 
 router.get("/", async (req, res) => {
-  console.log("testssss");
   try {
+    console.log("CHECK");
     const { name } = req.query;
-    console.log("name", name, req);
     if (name) {
       //searching in myDB
-      const pokemonByName = await Pokemons.findOne({ where: { name } });
+      const pokemonByName = await Pokemons.findOne({
+        where: { name: name },
+      });
       if (pokemonByName) {
         return res.status(200).send(pokemonByName);
       }
       //search in pokeapi
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${name}`
-      );
-      //if (response?.data) {
-      return res.status(200).send(response.data);
-      // } else {
-      //   return res.status(400).send("Pokemon no encontrado");
-      // }
+      console.log("name", name);
+      const apiPokemonName = await getPokemonByName(name);
+      console.log("pokemonName", apiPokemonName);
+
+      if (apiPokemonName) {
+        return res.status(200).send(apiPokemonName);
+      } else {
+        return res.status(400).send("Pokemon no encontrado");
+      }
     }
     //if not searching by name, get all pokemons from API
 
     const apiPokemon = await getAllPokemons();
 
-    console.log("apiPokemon", apiPokemon);
-
     //get all pokemons from myDB
     const dbPokemons = await Pokemons.findAll();
 
-    console.log("dbPokemons", dbPokemons);
-
     const combinedPokemon = [...dbPokemons, ...apiPokemon];
-
-    console.log("combinedPokemon", combinedPokemon);
 
     res.status(200).send(combinedPokemon);
   } catch (error) {

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPokemonByName } from "../../actions";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar() {
+  const pokemonName = useSelector((state) => state.pokemon);
+  const dispatch = useDispatch();
   const [pokemon, setPokemon] = useState("");
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onSearch(pokemon);
+        dispatch(getPokemonByName(pokemon));
         setPokemon("");
       }}
     >

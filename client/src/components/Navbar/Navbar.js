@@ -16,7 +16,7 @@ export default function Navbar(onSearch) {
         />
       </NavLink>
       <NavLink to="/create">Crear Pokemon</NavLink>
-      <SearchBar onSearch={onSearch} />
+      <SearchBar />
     </nav>
   );
 }
