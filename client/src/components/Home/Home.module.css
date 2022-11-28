@@ -1,0 +1,43 @@
+body {
+  background: #5db9ff;
+  font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.gridOuter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  width: 70vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  min-width: 250px;
+}
+
+.innerApp {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 250px;
+}

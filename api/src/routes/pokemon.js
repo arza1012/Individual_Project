@@ -7,7 +7,6 @@ const { getAllPokemons, getPokeapiByIdentifier } = require("../utils/utils.js");
 
 router.get("/", async (req, res) => {
   try {
-    console.log("CHECK");
     const { name } = req.query;
     if (name) {
       //searching in myDB
@@ -44,13 +43,11 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("idback", id);
 
     if (id) {
       //search in pokeapi
       try {
         const apiPokemonId = await getPokeapiByIdentifier(id);
-        console.log("apiPokemonId", apiPokemonId);
 
         if (apiPokemonId) {
           return res.status(200).json(apiPokemonId);

@@ -2,7 +2,8 @@ import {
   GET_ALL_POKEMON,
   GET_POKEMON_BY_NAME,
   GET_POKEMON_DETAIL,
-  // CREATE_POKEMON,
+  CREATE_POKEMON,
+  GET_POKEMON_TYPES,
 } from "./constants";
 
 export const getAllPokemon = () => async (dispatch) => {
@@ -30,7 +31,6 @@ export const getPokemonByName = (name) => async (dispatch) => {
 };
 
 export const getPokemonDetail = (id) => async (dispatch) => {
-  console.log("sending req", id);
   try {
     const res = await fetch(`http://localhost:3001/pokemon/${id}`, {
       headers: { "content-type": "application/json" },
@@ -43,12 +43,33 @@ export const getPokemonDetail = (id) => async (dispatch) => {
   }
 };
 
-// export const createPokemon = (newPokemon) => {
-// return async function (dispatch) {
-//   return axios
-//     .post("http://localhost:3001/pokemon", newPokemon)
-//     .then((response) =>
-//       dispatch({ type: CREATE_POKEMON, payload: response.data })
-//     );
-// };
-// };
+export const createPokemon = (newPokemon) => async (dispatch) => {
+  try {
+    const rawData = await fetch("http://localhost:3001/pokemon", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPokemon),
+    });
+    const response = await rawData.json();
+
+    dispatch({ type: CREATE_POKEMON, payload: response });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getPokemonTypes = () => async (dispatch) => {
+  console.log("GET TYPES");
+  try {
+    const res = await fetch("http://localhost:3001/types");
+    const response = await res.json();
+    console.log("responseTYPES", response);
+
+    dispatch({ type: GET_POKEMON_TYPES, payload: response });
+  } catch (e) {
+    console.error(e);
+  }
+};

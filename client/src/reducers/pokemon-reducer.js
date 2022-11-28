@@ -15,16 +15,15 @@ export default function reducer(state = initialState, action) {
         pokemons: action.payload,
       };
     case "GET_POKEMON_DETAIL":
-      console.log("payload", action.payload);
       return {
         ...state,
         pokemons: action.payload,
       };
-    // case "CREATE_POKEMON":
-    //   return {
-    //     ...state,
-    //     pokemons: [...state.pokemons, action.payload],
-    //   };
+    case "CREATE_POKEMON":
+      return {
+        ...state,
+        pokemons: [...state.pokemons, action.payload],
+      };
     default:
       return state;
   }

@@ -1,0 +1,35 @@
+.create {
+  color: whitesmoke;
+  font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.home {
+  color: whitesmoke;
+  font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.searchbar {
+  display: flex;
+}
+
+.innerNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30vw;
+}
+
+.outerNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}

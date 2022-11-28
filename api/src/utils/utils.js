@@ -22,15 +22,6 @@ async function getAllPokemons() {
       pokemon["name"] = p.name;
       pokemon["types"] = p.types.map((t) => t.type.name);
       pokemon["image"] = p.sprites.other.home.front_default;
-      // pokemon["height"] = p.height;
-      // pokemon["weight"] = p.weight;
-      // pokemon["life"] = p.stats.find((s) => s.stat.name === "hp").base_stat;
-      // pokemon["attack"] = p.stats.find(
-      //   (s) => s.stat.name === "attack"
-      // ).base_stat;
-      // pokemon["defense"] = p.stats.find(
-      //   (s) => s.stat.name === "defense"
-      // ).base_stat;
 
       return pokemon;
     });
