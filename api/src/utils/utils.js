@@ -21,8 +21,11 @@ async function getAllPokemons() {
       pokemon["id"] = p.id;
       pokemon["name"] = p.name;
       pokemon["types"] = p.types.map((t) => t.type.name);
+      pokemon["attack"] = p.stats.find(
+        (s) => s.stat.name === "attack"
+      ).base_stat;
       pokemon["image"] = p.sprites.other.home.front_default;
-
+      pokemon["createdByUser"] = false;
       return pokemon;
     });
   } catch (e) {

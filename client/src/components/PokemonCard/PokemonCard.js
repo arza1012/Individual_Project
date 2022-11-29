@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import styles from "./PokemonCard.module.css";
 import { useNavigate } from "react-router-dom";
 
-const PokemonCard = ({ id, image, name, types }) => {
+const PokemonCard = ({ id, image, name, types, attack }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const PokemonCard = ({ id, image, name, types }) => {
         <h2 className={styles.name}>{name}</h2>
         <p>Pokemon Type: </p>
         <p>{types}</p>
+        <p>Attack: {attack}</p>
       </div>
     </div>
   );

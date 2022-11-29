@@ -5,7 +5,8 @@ import { getPokemonTypes } from "../../actions/index";
 export default function Filters({
   setTypeFilter,
   setCreatedByUser,
-  setSortedBy,
+  setSortedByAlph,
+  setSortedByAttack,
 }) {
   const types = useSelector((state) => state.types);
 
@@ -26,8 +27,12 @@ export default function Filters({
     setCreatedByUser([createdByUser]);
   }
 
-  function sortedBy(e) {
-    setSortedBy(e.target.value);
+  function sortedByAlphabet(e) {
+    setSortedByAlph(e.target.value);
+  }
+
+  function sortedAttack(e) {
+    setSortedByAttack(e.target.value);
   }
 
   return (
@@ -48,7 +53,14 @@ export default function Filters({
         </select>
       </div>
       <div>
-        <select name="Sort Pokemons" onChange={(e) => sortedBy(e)}>
+        <select name="Sort Pokemons" onChange={(e) => sortedByAlphabet(e)}>
+          <option>All</option>
+          <option>Ascendant</option>
+          <option>Descendant</option>
+        </select>
+      </div>
+      <div>
+        <select name="Sort Attack" onChange={(e) => sortedAttack(e)}>
           <option>All</option>
           <option>Ascendant</option>
           <option>Descendant</option>

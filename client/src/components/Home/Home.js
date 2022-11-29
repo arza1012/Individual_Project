@@ -14,7 +14,8 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [typeFilter, setTypeFilter] = useState([]);
   const [createdByUser, setCreatedByUser] = useState([]);
-  const [sortedBy, setSortedBy] = useState([]);
+  const [sortedByAlph, setSortedByAlph] = useState([]);
+  const [sortedByAttack, setSortedByAttack] = useState([]);
 
   const indexLastCharacter = currentPage * charactersPerPage;
   const indexFistCharacter = indexLastCharacter - charactersPerPage;
@@ -47,8 +48,8 @@ export default function Home() {
             return false;
           }
         }
-        if (sortedBy.length > 0) {
-          if (sortedBy.includes("Ascendant")) {
+        if (sortedByAlph.length > 0) {
+          if (sortedByAlph.includes("Ascendant")) {
             chars.sort(function (a, b) {
               if (a.name > b.name) {
                 return 1;
@@ -58,7 +59,7 @@ export default function Home() {
               }
               return 0;
             });
-          } else if (sortedBy.includes("Descendant")) {
+          } else if (sortedByAlph.includes("Descendant")) {
             chars.sort(function (a, b) {
               if (a.name > b.name) {
                 return -1;
@@ -70,10 +71,34 @@ export default function Home() {
             });
           }
         }
+        if (sortedByAttack.length > 0) {
+          if (sortedByAttack.includes("Ascendant")) {
+            chars.sort(function (a, b) {
+              console.log("chars", chars);
+              if (a.attack > b.attack) {
+                return 1;
+              }
+              if (a.attack < b.attack) {
+                return -1;
+              }
+              return 0;
+            });
+          } else if (sortedByAttack.includes("Descendant")) {
+            chars.sort(function (a, b) {
+              if (a.attack > b.attack) {
+                return -1;
+              }
+              if (a.attack < b.attack) {
+                return 1;
+              }
+              return 0;
+            });
+          }
+        }
         return true;
       });
     },
-    [typeFilter, sortedBy, createdByUser]
+    [typeFilter, sortedByAlph, createdByUser, sortedByAttack]
   );
 
   const currentCharacters = useMemo(() => {
@@ -107,7 +132,8 @@ export default function Home() {
         <Filters
           setTypeFilter={setTypeFilter}
           setCreatedByUser={setCreatedByUser}
-          setSortedBy={setSortedBy}
+          setSortedByAlph={setSortedByAlph}
+          setSortedByAttack={setSortedByAttack}
         />
         <div className={styles.cards}>
           {filterCurrentCharacters(currentCharacters)?.map((p, index) => (
@@ -117,6 +143,7 @@ export default function Home() {
               name={p.name}
               image={p.image}
               types={p.types}
+              attack={p.attack}
             />
           ))}
         </div>
