@@ -21,7 +21,7 @@ export default function Navbar(onSearch) {
           Home
         </NavLink>
         <NavLink className={styles.create} to="/create">
-          Crear Pokemon
+          Create New Pokemon
         </NavLink>
         <SearchBar className={styles.searchbar} />
       </div>

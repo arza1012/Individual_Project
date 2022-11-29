@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPokemon } from "../../actions";
 import PokemonCard from "../PokemonCard/PokemonCard";
@@ -12,14 +12,12 @@ const charactersPerPage = 12;
 export default function Home() {
   const pokemon = useSelector((state) => state.pokemon);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [typeFilter, setTypeFilter] = useState([]);
+  const [typeFilter, setTypeFilter] = useState([]);
+  const [createdByUser, setCreatedByUser] = useState([]);
+  const [sortedBy, setSortedBy] = useState([]);
 
   const indexLastCharacter = currentPage * charactersPerPage;
   const indexFistCharacter = indexLastCharacter - charactersPerPage;
-  const currentCharacters =
-    pokemon.pokemons.length > 1
-      ? pokemon.pokemons.slice(indexFistCharacter, indexLastCharacter)
-      : [pokemon.pokemons];
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -33,16 +31,64 @@ export default function Home() {
     setCurrentPage(pageNumber);
   };
 
-  // const filterCurrentCharacters = (chars) => {
-  //   if (typeFilter.length > 0) {
-  //     console.log("chars", chars);
-  //     return chars.filter((char) =>
-  //       char?.types?.some((t) => typeFilter.includes(t))
-  //     );
-  //   } else {
-  //     return chars;
-  //   }
-  // };
+  const filterCurrentCharacters = useCallback(
+    (chars) => {
+      return chars.filter((char) => {
+        if (typeFilter.length > 0) {
+          if (
+            !typeFilter.includes("All") &&
+            !char?.types?.some((t) => typeFilter.includes(t))
+          ) {
+            return false;
+          }
+        }
+        if (createdByUser.length > 0) {
+          if (!createdByUser.includes(char.createdByUser)) {
+            return false;
+          }
+        }
+        if (sortedBy.length > 0) {
+          if (sortedBy.includes("Ascendant")) {
+            chars.sort(function (a, b) {
+              if (a.name > b.name) {
+                return 1;
+              }
+              if (a.name < b.name) {
+                return -1;
+              }
+              return 0;
+            });
+          } else if (sortedBy.includes("Descendant")) {
+            chars.sort(function (a, b) {
+              if (a.name > b.name) {
+                return -1;
+              }
+              if (a.name < b.name) {
+                return 1;
+              }
+              return 0;
+            });
+          }
+        }
+        return true;
+      });
+    },
+    [typeFilter, sortedBy, createdByUser]
+  );
+
+  const currentCharacters = useMemo(() => {
+    return filterCurrentCharacters(pokemon.pokemons).length > 1
+      ? filterCurrentCharacters(pokemon.pokemons).slice(
+          indexFistCharacter,
+          indexLastCharacter
+        )
+      : [pokemon.pokemons];
+  }, [
+    filterCurrentCharacters,
+    pokemon.pokemons,
+    indexFistCharacter,
+    indexLastCharacter,
+  ]);
 
   return (
     <div className={styles.gridOuter}>
@@ -52,31 +98,33 @@ export default function Home() {
           {pokemon?.pokemons?.length > 0 && (
             <Pagination
               charactersPerPage={charactersPerPage}
-              pokemon={pokemon.pokemons.length}
+              pokemonLength={filterCurrentCharacters(pokemon?.pokemons).length}
               nextPage={nextPage}
             />
           )}
         </div>
-        <Filters />
-        {/* <Filters setTypeFilter={setTypeFilter} typeFilter={typeFilter} /> */}
+
+        <Filters
+          setTypeFilter={setTypeFilter}
+          setCreatedByUser={setCreatedByUser}
+          setSortedBy={setSortedBy}
+        />
         <div className={styles.cards}>
-          {currentCharacters?.map((p) => {
-            return (
-              <PokemonCard
-                id={p.id}
-                key={p.id}
-                name={p.name}
-                image={p.image}
-                types={p.types}
-              />
-            );
-          })}
+          {filterCurrentCharacters(currentCharacters)?.map((p, index) => (
+            <PokemonCard
+              id={p.id}
+              key={index}
+              name={p.name}
+              image={p.image}
+              types={p.types}
+            />
+          ))}
         </div>
         <div>
           {pokemon?.pokemons?.length > 0 && (
             <Pagination
               charactersPerPage={charactersPerPage}
-              pokemon={pokemon.pokemons.length}
+              pokemon={currentCharacters.length}
               nextPage={nextPage}
             />
           )}
