@@ -1,36 +1,72 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonDetail } from "../../actions";
 import { Link, useParams } from "react-router-dom";
+import styles from "./Details.module.css";
+import pokeball from "../../images/pokeball.png";
+import loadLogo from "../../images/gifpokeball.gif";
 
 export default function PokemonDetails() {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const pokemon = useSelector((state) => state.pokemon.pokemons);
+  const pokemon = useSelector((state) => state.selectedPokemon);
   useEffect(() => {
+    setLoading(true);
+    if (pokemon.id) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      return;
+    }
     const pokemonDetails = async () => {
       dispatch(getPokemonDetail(id));
     };
     pokemonDetails();
-  }, [dispatch, id]);
+  }, [dispatch, id, pokemon]);
 
   if (pokemon) {
     return (
-      <div>
-        <h1>Soy {pokemon.name}!</h1>
-        <p>#{pokemon.id}</p>
-        <img src={pokemon.image} alt={pokemon.name} />
-        <p>Type: {pokemon.types}</p>
-        <p>Base Stats</p>
-        <p>hp: {pokemon.hp}</p>
-        <p>attack: {pokemon.attack}</p>
-        <p>defense: {pokemon.defense}</p>
-        <p>speed: {pokemon.speed}</p>
-        <p>height: {pokemon.height} cm</p>
-        <p>weight: {pokemon.weight} kg</p>
-        <Link to="/home">
-          <button>Back</button>
-        </Link>
+      <div className={styles.container}>
+        {loading ? (
+          <img src={loadLogo} alt="loading" />
+        ) : (
+          <div className={styles.outerDetails}>
+            <div className={styles.details}>
+              <div className={styles.title}>
+                <div className={styles.name}>{pokemon.name}</div>
+                <div className={styles.id}>
+                  <p>#{pokemon.id}</p>
+                </div>
+              </div>
+              <div className={styles.outerImage}>
+                <img
+                  className={styles.image}
+                  src={pokemon.image ? pokemon.image : pokeball}
+                  alt={pokemon.name}
+                />
+              </div>
+              <div className={styles.description}>
+                <div className={styles.subtitle}>Pokemon Type:</div>
+                <div className={styles.each}>
+                  {!pokemon.createdByUser
+                    ? pokemon.types?.map((t) => t + " ")
+                    : pokemon.types?.map((type) => type.name + " ")}
+                </div>
+                <div className={styles.subtitle}>Base Stats</div>
+                <div className={styles.each}>hp: {pokemon.hp}</div>
+                <div className={styles.each}>attack: {pokemon.attack}</div>
+                <div className={styles.each}>defense: {pokemon.defense}</div>
+                <div className={styles.each}>speed: {pokemon.speed}</div>
+                <div className={styles.each}>height: {pokemon.height} cm</div>
+                <div className={styles.each}>weight: {pokemon.weight} kg</div>
+              </div>
+            </div>
+            <Link to="/home">
+              <button className={styles.button}>Back</button>
+            </Link>
+          </div>
+        )}
       </div>
     );
   } else {

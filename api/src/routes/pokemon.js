@@ -2,7 +2,6 @@ const { Router } = require("express");
 const { Pokemons, Types } = require("../db.js");
 const fetch = require("node-fetch");
 const router = Router();
-const axios = require("axios");
 const { getAllPokemons, getPokeapiByIdentifier } = require("../utils/utils.js");
 
 router.get("/", async (req, res) => {
@@ -11,7 +10,14 @@ router.get("/", async (req, res) => {
     if (name) {
       //searching in myDB
       const pokemonByName = await Pokemons.findOne({
-        where: { name: name },
+        where: {
+          name: name,
+        },
+        include: {
+          model: Types,
+          attribuites: ["name"],
+          through: { attributes: [] },
+        },
       });
       if (pokemonByName) {
         return res.status(200).send(pokemonByName);
@@ -30,7 +36,13 @@ router.get("/", async (req, res) => {
     const apiPokemon = await getAllPokemons();
 
     //get all pokemons from myDB
-    const dbPokemons = await Pokemons.findAll();
+    const dbPokemons = await Pokemons.findAll({
+      include: {
+        model: Types,
+        attribuites: ["name"],
+        through: { attributes: [] },
+      },
+    });
 
     const combinedPokemon = [...dbPokemons, ...apiPokemon];
 
@@ -57,7 +69,13 @@ router.get("/:id", async (req, res) => {
       }
 
       //else, search in myDB
-      const pokemonById = await Pokemons.findByPk(id);
+      const pokemonById = await Pokemons.findByPk(id, {
+        include: {
+          model: Types,
+          attribuites: ["name"],
+          through: { attributes: [] },
+        },
+      });
       if (pokemonById) {
         return res.status(200).send(pokemonById);
       } else {
@@ -71,11 +89,20 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { name, life, attack, defense, speed, height, weight } = req.body;
+    const { name, types } = req.body;
     if (!name) {
       return res.status(400).send("Falta agregar nombre de Pokemon");
     }
+
+    const pokemonPreviouslyCreated = await Pokemons.findOne({
+      where: { name: name },
+    });
+    if (pokemonPreviouslyCreated) return res.send("El pokemon ya existe");
+
     const newPokemon = await Pokemons.create(req.body);
+    const typesDb = await Types.findAll({ where: { name: types } });
+    newPokemon.addType(typesDb);
+
     res.status(201).send(newPokemon);
   } catch (error) {
     res

@@ -1,3 +1,7 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
 .video {
   margin-top: 1px;
   height: 100vh;
@@ -22,8 +26,7 @@
   padding: 15px 35px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #ffee66;
-  margin-top: 200px;
-  margin-left: 100px;
+  margin-top: 5vh;
 }
 .button:hover {
   background-color: #ffab23;

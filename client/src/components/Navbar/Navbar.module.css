@@ -23,7 +23,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 35vw;
+  width: 40vw;
+  flex-wrap: wrap;
 }
 
 .outerNav {
@@ -32,4 +33,17 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  width: 100%;
+}
+
+@media (max-width: 400px) {
+  img {
+    display: none;
+  }
+  .innerNav {
+    display: flex;
+    justify-content: space-around;
+    width: auto;
+    padding: 5vw;
+  }
 }

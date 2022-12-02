@@ -4,7 +4,7 @@ import Logo from "../../images/mystique.png";
 import SearchBar from "../SearchBar/SearchBar";
 import styles from "./Navbar.module.css";
 
-export default function Navbar(onSearch) {
+export default function Navbar() {
   return (
     <nav className={styles.outerNav}>
       <NavLink to="/home">

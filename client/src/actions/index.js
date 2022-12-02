@@ -4,6 +4,7 @@ import {
   GET_POKEMON_DETAIL,
   CREATE_POKEMON,
   GET_POKEMON_TYPES,
+  CLEAR_SELECTED_POKEMON,
 } from "./constants";
 
 export const getAllPokemon = () => async (dispatch) => {
@@ -44,6 +45,7 @@ export const getPokemonDetail = (id) => async (dispatch) => {
 };
 
 export const createPokemon = (newPokemon) => async (dispatch) => {
+  console.log("newPokemon", newPokemon);
   try {
     const rawData = await fetch("http://localhost:3001/pokemon", {
       method: "POST",
@@ -53,7 +55,9 @@ export const createPokemon = (newPokemon) => async (dispatch) => {
       },
       body: JSON.stringify(newPokemon),
     });
+    console.log("rawData", rawData);
     const response = await rawData.json();
+    console.log("actionCreate", response);
 
     dispatch({ type: CREATE_POKEMON, payload: response });
   } catch (e) {
@@ -62,7 +66,6 @@ export const createPokemon = (newPokemon) => async (dispatch) => {
 };
 
 export const getPokemonTypes = () => async (dispatch) => {
-  console.log("GET TYPES");
   try {
     const res = await fetch("http://localhost:3001/types");
     const response = await res.json();
@@ -72,4 +75,8 @@ export const getPokemonTypes = () => async (dispatch) => {
   } catch (e) {
     console.error(e);
   }
+};
+
+export const clearSelectedPokemon = () => async (dispatch) => {
+  dispatch({ type: CLEAR_SELECTED_POKEMON });
 };

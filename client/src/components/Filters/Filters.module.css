@@ -1,0 +1,42 @@
+.outerDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin-top: 40px;
+}
+
+.innerDiv {
+  width: 69vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: rgb(245, 245, 245);
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.select {
+  flex-basis: 21%;
+  margin: 8px;
+  max-width: 100%;
+  position: relative;
+  background: rgb(245, 245, 245);
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .innerDiv {
+    display: block;
+  }
+  option {
+    display: inline-block;
+    position: relative;
+  }
+}

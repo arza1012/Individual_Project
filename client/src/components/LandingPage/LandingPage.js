@@ -13,10 +13,10 @@ export default function LandingPage() {
       setShowButton(true);
     }, 2000);
     return () => clearTimeout(timer);
-  }, [setShowButton]);
+  }, [showButton]);
 
   return (
-    <div>
+    <div className={styles.container}>
       <video className={styles.video} src={squirtlemovie} autoPlay muted />
       <div style={{ display: showButton ? "inline" : "none" }}>
         <Link to="/home">

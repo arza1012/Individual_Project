@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getPokemonByName } from "../../actions";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
-  const pokemonName = useSelector((state) => state.pokemon);
   const dispatch = useDispatch();
   const [pokemon, setPokemon] = useState("");
 
+  const navigate = useNavigate();
+
+  const selectPokemon = async (e) => {
+    e.preventDefault();
+    await dispatch(getPokemonByName(pokemon));
+    navigate(`/home/${pokemon}`);
+    setPokemon("");
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        dispatch(getPokemonByName(pokemon));
-        setPokemon("");
-      }}
-    >
+    <form onSubmit={selectPokemon}>
       <input
         type="text"
         placeholder="Buscar Pokemon..."

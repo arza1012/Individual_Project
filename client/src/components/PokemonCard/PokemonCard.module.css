@@ -4,16 +4,32 @@
   align-items: center;
   justify-content: space-evenly;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  box-sizing: border-box;
   background: rgb(245, 245, 245);
+  border-radius: 4px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  max-height: fit-content;
 }
 
 .image {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+}
+
+.outerImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .name {
@@ -21,6 +37,7 @@
   font-size: 20px;
   margin: 0;
   padding: 0;
+  text-transform: capitalize;
 }
 
 .outerCard {
@@ -28,4 +45,34 @@
   flex-basis: 25%;
   box-sizing: border-box;
   padding: 8px;
+}
+.outerCard div:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.outerType {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+
+.innerType {
+  font-size: 14px;
+  color: rgb(64, 63, 63);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+  text-transform: capitalize;
+}
+
+.attack {
+  font-size: 14px;
+  color: rgb(64, 63, 63);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }

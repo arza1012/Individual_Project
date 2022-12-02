@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 
       const result = await Types.bulkCreate(pokemonTypes);
 
-      return res.status(200).send(JSON.stringify(result));
+      return res.status(200).send(result);
     }
   } catch (error) {
     res.status(500).send("Algo salio mal");

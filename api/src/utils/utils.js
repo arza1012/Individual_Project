@@ -24,7 +24,7 @@ async function getAllPokemons() {
       pokemon["attack"] = p.stats.find(
         (s) => s.stat.name === "attack"
       ).base_stat;
-      pokemon["image"] = p.sprites.other.home.front_default;
+      pokemon["image"] = p.sprites.other.dream_world.front_default;
       pokemon["createdByUser"] = false;
       return pokemon;
     });
@@ -53,7 +53,7 @@ async function getPokeapiByIdentifier(value) {
     (s) => s.stat.name === "speed"
   ).base_stat;
   pokemon["types"] = response.types.map((t) => t.type.name);
-  pokemon["image"] = response.sprites.other.home.front_default;
+  pokemon["image"] = response.sprites.other.dream_world.front_default;
 
   return pokemon;
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPokemonTypes } from "../../actions/index";
+import styles from "./Filters.module.css";
 
 export default function Filters({
   setTypeFilter,
@@ -36,35 +37,41 @@ export default function Filters({
   }
 
   return (
-    <div>
-      <div>
-        <select name="Pokemon Types" onChange={(e) => filteredByType(e)}>
-          <option>All</option>
-          {types?.map((t) => (
-            <option key={t.name}>{t.name}</option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <select name="Pokemon origin" onChange={(e) => filteredByCreated(e)}>
-          <option>All</option>
-          <option>Created by user</option>
-          <option>Existing Pokemon</option>
-        </select>
-      </div>
-      <div>
-        <select name="Sort Pokemons" onChange={(e) => sortedByAlphabet(e)}>
-          <option>All</option>
-          <option>Ascendant</option>
-          <option>Descendant</option>
-        </select>
-      </div>
-      <div>
-        <select name="Sort Attack" onChange={(e) => sortedAttack(e)}>
-          <option>All</option>
-          <option>Ascendant</option>
-          <option>Descendant</option>
-        </select>
+    <div className={styles.outerDiv}>
+      <div className={styles.innerDiv}>
+        <div className={styles.select}>
+          <span className="selectDefault"></span>
+          <select name="Pokemon Types" onChange={(e) => filteredByType(e)}>
+            <option className="default-text">-- Select Types --</option>
+            {types?.map((t) => (
+              <option key={t.name}>{t.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className={styles.select}>
+          <span className="selectDefault"></span>
+          <select name="Pokemon origin" onChange={(e) => filteredByCreated(e)}>
+            <option className="default-text">-- Select Origin --</option>
+            <option>Created by user</option>
+            <option>Existing Pokemon</option>
+          </select>
+        </div>
+        <div className={styles.select}>
+          <span className="selectDefault"></span>
+          <select name="Sort Pokemons" onChange={(e) => sortedByAlphabet(e)}>
+            <option className="default-text">-- Select A-Z --</option>
+            <option>Ascendant</option>
+            <option>Descendant</option>
+          </select>
+        </div>
+        <div className={styles.select}>
+          <span className="selectDefault"></span>
+          <select name="Sort Attack" onChange={(e) => sortedAttack(e)}>
+            <option className="default-text">-- Select by attack --</option>
+            <option>Ascendant</option>
+            <option>Descendant</option>
+          </select>
+        </div>
       </div>
     </div>
   );

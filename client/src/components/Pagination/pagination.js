@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styles from "./Pagination.module.css";
 
 export default function Pagination({
   charactersPerPage,
@@ -16,15 +17,16 @@ export default function Pagination({
   }, [pokemonLength, charactersPerPage]);
 
   return (
-    <nav>
-      <ul>
-        {pageNumbers &&
-          pageNumbers.map((number) => (
-            <li key={number}>
-              <span onClick={() => nextPage(number)}>{number}</span>
-            </li>
-          ))}
-      </ul>
+    <nav className={styles.container}>
+      <div className={styles.innerContainer}>
+        {pageNumbers
+          ? pageNumbers.map((number) => (
+              <div className={styles.number} key={number}>
+                <span onClick={() => nextPage(number)}>{number}</span>
+              </div>
+            ))
+          : null}
+      </div>
     </nav>
   );
 }

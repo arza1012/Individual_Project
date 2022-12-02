@@ -1,0 +1,27 @@
+.number {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  margin: 10px;
+  color: rgb(245, 245, 245);
+  border: 1px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.number span.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.number span:hover:not(.active) {
+  background-color: #ddd;
+}
