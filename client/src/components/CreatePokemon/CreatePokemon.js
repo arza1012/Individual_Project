@@ -22,15 +22,31 @@ const CreateNewPokemon = () => {
     types: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const validate = (input) => {
+    const errors = {};
+
+    if (!input.name) {
+      errors.name = "El campo 'Name' es obligatorio";
+    }
+
+    return errors;
+  };
+
   function handleChange(event) {
     if (event.target.id === "typeSelect") {
       const updatedTypes = [...values.types, event.target.value];
-
       setValues({
         ...values,
         types: updatedTypes,
       });
     } else {
+      setErrors(
+        validate({
+          ...values,
+          [event.target.name]: event.target.value,
+        })
+      );
       setValues({
         ...values,
         [event.target.name]: event.target.value,
@@ -49,6 +65,7 @@ const CreateNewPokemon = () => {
         <form className={styles.form}>
           <label className={styles.subtitle}>Name: </label>
           <input type="text" name="name" onChange={handleChange} />
+          {errors.name && <p className={styles.danger}>{errors.name}</p>}
           <label className={styles.subtitle}>hp: </label>
           <input type="number" name="hp" onChange={handleChange} />
           <label className={styles.subtitle}>attack: </label>

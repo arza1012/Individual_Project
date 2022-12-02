@@ -42,6 +42,11 @@
   margin: 20px;
 }
 
+.danger {
+  color: red;
+  font-weight: medium;
+}
+
 @media (max-width: 720px) {
   .form {
     width: 100%;
