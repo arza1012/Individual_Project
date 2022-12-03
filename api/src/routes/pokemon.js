@@ -20,15 +20,15 @@ router.get("/", async (req, res) => {
         },
       });
       if (pokemonByName) {
-        return res.status(200).send(pokemonByName);
+        return res.status(200).json(pokemonByName);
       }
       //search in pokeapi
       const apiPokemonName = await getPokeapiByIdentifier(name);
 
       if (apiPokemonName) {
-        return res.status(200).send(apiPokemonName);
+        return res.status(200).json(apiPokemonName);
       } else {
-        return res.status(400).send("Pokemon no encontrado");
+        return res.status(400).json("Pokemon no encontrado");
       }
     }
     //if not searching by name, get all pokemons from API
@@ -46,9 +46,9 @@ router.get("/", async (req, res) => {
 
     const combinedPokemon = [...dbPokemons, ...apiPokemon];
 
-    res.status(200).send(combinedPokemon);
+    res.status(200).json(combinedPokemon);
   } catch (error) {
-    res.status(500).send("Pokemon no encontrado");
+    res.status(500).json("Pokemon no encontrado");
   }
 });
 
@@ -77,13 +77,13 @@ router.get("/:id", async (req, res) => {
         },
       });
       if (pokemonById) {
-        return res.status(200).send(pokemonById);
+        return res.status(200).json(pokemonById);
       } else {
-        return res.status(400).send("Pokemon no encontrado");
+        return res.status(400).json("Pokemon no encontrado");
       }
     }
   } catch (error) {
-    res.status(500).send("Algo salio mal");
+    res.status(500).json("Algo salio mal");
   }
 });
 
@@ -91,23 +91,23 @@ router.post("/", async (req, res) => {
   try {
     const { name, types } = req.body;
     if (!name) {
-      return res.status(400).send("Falta agregar nombre de Pokemon");
+      return res.status(400).json("Falta agregar nombre de Pokemon");
     }
 
     const pokemonPreviouslyCreated = await Pokemons.findOne({
       where: { name: name },
     });
-    if (pokemonPreviouslyCreated) return res.send("El pokemon ya existe");
+    if (pokemonPreviouslyCreated) return res.json("El pokemon ya existe");
 
     const newPokemon = await Pokemons.create(req.body);
     const typesDb = await Types.findAll({ where: { name: types } });
     newPokemon.addType(typesDb);
 
-    res.status(201).send(newPokemon);
+    res.status(201).json(newPokemon);
   } catch (error) {
     res
       .status(500)
-      .send("No se pudo crear Pokemon. Error en alguno de los datos provistos");
+      .json("No se pudo crear Pokemon. Error en alguno de los datos provistos");
   }
 });
 
