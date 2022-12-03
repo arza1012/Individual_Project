@@ -45,7 +45,6 @@ export const getPokemonDetail = (id) => async (dispatch) => {
 };
 
 export const createPokemon = (newPokemon) => async (dispatch) => {
-  console.log("newPokemon", newPokemon);
   try {
     const rawData = await fetch("http://localhost:3001/pokemon", {
       method: "POST",

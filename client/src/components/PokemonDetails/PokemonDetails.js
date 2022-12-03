@@ -7,9 +7,10 @@ import pokeball from "../../images/pokeball.png";
 import loadLogo from "../../images/gifpokeball.gif";
 
 export default function PokemonDetails() {
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { id } = useParams();
+
   const pokemon = useSelector((state) => state.selectedPokemon);
   useEffect(() => {
     setLoading(true);

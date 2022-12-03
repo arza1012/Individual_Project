@@ -24,10 +24,18 @@ const CreateNewPokemon = () => {
 
   const [errors, setErrors] = useState({});
   const validate = (input) => {
-    const errors = {};
-
-    if (!input.name) {
+    let errors = {};
+    let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    let regexURl =
+      /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+    console.log("input", input);
+    if (!input.name.trim()) {
       errors.name = "El campo 'Name' es obligatorio";
+      if (!regexURl.test(input.image.trim())) {
+        errors.image = "Debes añadir un URL válido";
+      }
+    } else if (!regexName.test(input.name)) {
+      errors.name = "El campo 'Name' solo acepta letras y espacios en blanco";
     }
 
     return errors;
@@ -75,11 +83,14 @@ const CreateNewPokemon = () => {
           <label className={styles.subtitle}>speed: </label>
           <input type="number" name="speed" onChange={handleChange} />
           <label className={styles.subtitle}>height: </label>
-          <input type="float" name="height" onChange={handleChange} />
+          <input type="numer" name="height" onChange={handleChange} />
+          {errors.height && <p className={styles.danger}>{errors.height}</p>}
           <label className={styles.subtitle}>weight: </label>
           <input type="number" name="weight" onChange={handleChange} />
+          {errors.weight && <p className={styles.danger}>{errors.weight}</p>}
           <label className={styles.subtitle}>URL image: </label>
           <input type="text" name="image" onChange={handleChange} />
+          {errors.image && <p className={styles.danger}>{errors.image}</p>}
 
           <span className={styles.subtitle}>Select pokemon type:</span>
           <select id="typeSelect" value={values.types} onChange={handleChange}>
@@ -91,7 +102,9 @@ const CreateNewPokemon = () => {
             ))}
           </select>
           <div className={styles.submit}>
-            <button onClick={handleSubmit}>Crear Pokemon</button>
+            <button type="submit" onClick={handleSubmit}>
+              Create Pokemon
+            </button>
           </div>
         </form>
         <Link to="/home">

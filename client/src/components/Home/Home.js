@@ -12,7 +12,6 @@ const charactersPerPage = 12;
 export default function Home() {
   const pokemon = useSelector((state) => state.pokemon);
   const selectedPokemon = useSelector((state) => state.selectedPokemon);
-  console.log("selectedPokemon", selectedPokemon);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [typeFilter, setTypeFilter] = useState([]);

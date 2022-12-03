@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "../../images/mystique.png";
 import SearchBar from "../SearchBar/SearchBar";
 import styles from "./Navbar.module.css";
@@ -7,7 +7,7 @@ import styles from "./Navbar.module.css";
 export default function Navbar() {
   return (
     <nav className={styles.outerNav}>
-      <NavLink to="/home">
+      <Link to="/home">
         <img
           id="logoPokemon"
           src={Logo}
@@ -15,14 +15,14 @@ export default function Navbar() {
           height="40"
           alt="Pokemon logo"
         />
-      </NavLink>
+      </Link>
       <div className={styles.innerNav}>
-        <NavLink className={styles.home} to="/home">
+        <Link className={styles.home} to="/home">
           Home
-        </NavLink>
-        <NavLink className={styles.create} to="/create">
+        </Link>
+        <Link className={styles.create} to="/create">
           Create New Pokemon
-        </NavLink>
+        </Link>
         <SearchBar className={styles.searchbar} />
       </div>
     </nav>
