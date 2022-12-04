@@ -54,9 +54,8 @@ export const createPokemon = (newPokemon) => async (dispatch) => {
       },
       body: JSON.stringify(newPokemon),
     });
-    console.log("rawData", rawData);
+
     const response = await rawData.json();
-    console.log("actionCreate", response);
 
     dispatch({ type: CREATE_POKEMON, payload: response });
   } catch (e) {
