@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import CreatePokemon from "./components/CreatePokemon/CreatePokemon";
 import PokemonDetails from "./components/PokemonDetails/PokemonDetails";
 import LandingPage from "./components/LandingPage/LandingPage";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   const location = useLocation();
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/home/:id" element={<PokemonDetails />} />
         <Route exact path="/create" element={<CreatePokemon />} />
+        <Route exact path="/notfound" element={<NotFound />} />
       </Routes>
     </>
   );
