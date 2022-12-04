@@ -84,13 +84,12 @@ const CreateNewPokemon = () => {
           <input type="number" name="speed" onChange={handleChange} />
           <label className={styles.subtitle}>height: </label>
           <input type="numer" name="height" onChange={handleChange} />
-          {errors.height && <p className={styles.danger}>{errors.height}</p>}
           <label className={styles.subtitle}>weight: </label>
           <input type="number" name="weight" onChange={handleChange} />
           {errors.weight && <p className={styles.danger}>{errors.weight}</p>}
           <label className={styles.subtitle}>URL image: </label>
           <input type="text" name="image" onChange={handleChange} />
-          {errors.image && <p className={styles.danger}>{errors.image}</p>}
+          {errors.image && <div className={styles.danger}>{errors.image}</div>}
 
           <span className={styles.subtitle}>Select pokemon type:</span>
           <select id="typeSelect" value={values.types} onChange={handleChange}>

@@ -45,6 +45,9 @@
 .danger {
   color: red;
   font-weight: medium;
+  font-size: 12px;
+  padding: 0px;
+  margin: 0px;
 }
 
 @media (max-width: 720px) {
