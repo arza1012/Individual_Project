@@ -70,7 +70,6 @@ export const getPokemonTypes = () => async (dispatch) => {
   try {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/types`);
     const response = await res.json();
-    console.log("responseTYPES", response);
 
     dispatch({ type: GET_POKEMON_TYPES, payload: response });
   } catch (e) {
