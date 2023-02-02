@@ -2,7 +2,7 @@
 
 # Individual Project - Henry Pokemon
 
-<img height="150" src="./pokemon.png" />
+https://www.loom.com/share/4d736cf4fe5b4bc7b7a07e93a5b72561
 
 ## Objetivos del Proyecto
 
