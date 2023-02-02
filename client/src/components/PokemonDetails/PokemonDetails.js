@@ -14,7 +14,8 @@ export default function PokemonDetails() {
 
   const pokemon = useSelector((state) => state.selectedPokemon);
   useEffect(() => {
-    if (pokemon.notFound) {
+    console.log("pokemon", pokemon);
+    if (pokemon === "Pokemon no encontrado") {
       navigate("/notfound");
     }
     setLoading(true);

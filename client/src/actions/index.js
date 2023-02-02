@@ -9,7 +9,7 @@ import {
 
 export const getAllPokemon = () => async (dispatch) => {
   try {
-    const res = await fetch("http://localhost:3001/pokemon");
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/pokemon`);
     const response = await res.json();
 
     dispatch({ type: GET_ALL_POKEMON, payload: response });
@@ -20,9 +20,12 @@ export const getAllPokemon = () => async (dispatch) => {
 
 export const getPokemonByName = (name) => async (dispatch) => {
   try {
-    const res = await fetch(`http://localhost:3001/pokemon?name=${name}`, {
-      headers: { "content-type": "application/json" },
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/pokemon?name=${name}`,
+      {
+        headers: { "content-type": "application/json" },
+      }
+    );
     const response = await res.json();
 
     dispatch({ type: GET_POKEMON_BY_NAME, payload: response });
@@ -33,7 +36,7 @@ export const getPokemonByName = (name) => async (dispatch) => {
 
 export const getPokemonDetail = (id) => async (dispatch) => {
   try {
-    const res = await fetch(`http://localhost:3001/pokemon/${id}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/pokemon/${id}`, {
       headers: { "content-type": "application/json" },
     });
     const response = await res.json();
@@ -46,7 +49,7 @@ export const getPokemonDetail = (id) => async (dispatch) => {
 
 export const createPokemon = (newPokemon) => async (dispatch) => {
   try {
-    const rawData = await fetch("http://localhost:3001/pokemon", {
+    const rawData = await fetch(`${process.env.REACT_APP_API_URL}/pokemon`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -65,7 +68,7 @@ export const createPokemon = (newPokemon) => async (dispatch) => {
 
 export const getPokemonTypes = () => async (dispatch) => {
   try {
-    const res = await fetch("http://localhost:3001/types");
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/types`);
     const response = await res.json();
     console.log("responseTYPES", response);
 
