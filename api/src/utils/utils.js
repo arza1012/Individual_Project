@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 
 async function getAllPokemons() {
   try {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=40");
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
 
     const res = await response.json();
 
