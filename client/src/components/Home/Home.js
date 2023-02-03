@@ -82,7 +82,6 @@ export default function Home() {
       if (sortedByAttack.length > 0) {
         if (sortedByAttack.includes("Ascendant")) {
           chars.sort(function (a, b) {
-            console.log("chars", chars);
             if (a.attack > b.attack) {
               return 1;
             }
