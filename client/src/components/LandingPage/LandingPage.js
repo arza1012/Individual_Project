@@ -1,27 +1,19 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import styles from "./LandingPage.module.css";
-import squirtlemovie from "../../images/squirtlemovie.mov";
+import background from "../../images/background.gif";
+import pokemon from "../../images/catchemall.png";
 
 export default function LandingPage() {
-  const [showButton, setShowButton] = useState(false);
-  useEffect(() => {
-    if (showButton) {
-      return;
-    }
-    const timer = setTimeout(() => {
-      setShowButton(true);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, [showButton]);
-
   return (
     <div className={styles.container}>
-      <video className={styles.video} src={squirtlemovie} autoPlay muted />
-      <div style={{ display: showButton ? "inline" : "none" }}>
+      <div className={styles.outerButton}>
+        <img className={styles.pokemon} src={pokemon} alt="logo pokemon" />
         <Link to="/home">
           <button className={styles.button}>Let's go!</button>
         </Link>
+      </div>
+      <div>
+        <img className={styles.image} src={background} alt="pikachu" />
       </div>
     </div>
   );

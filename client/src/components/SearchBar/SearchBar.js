@@ -11,8 +11,8 @@ export default function SearchBar() {
 
   const selectPokemon = async (e) => {
     e.preventDefault();
-    await dispatch(getPokemonByName(pokemon));
-    navigate(`/home/${pokemon}`);
+    await dispatch(getPokemonByName(pokemon.toLowerCase()));
+    navigate(`/home/${pokemon.toLowerCase()}`);
     setPokemon("");
   };
 
