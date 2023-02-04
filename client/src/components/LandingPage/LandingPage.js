@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styles from "./LandingPage.module.css";
-import background from "../../images/background.gif";
 import pokemon from "../../images/catchemall.png";
 
 export default function LandingPage() {
@@ -11,9 +10,6 @@ export default function LandingPage() {
         <Link to="/home">
           <button className={styles.button}>Let's go!</button>
         </Link>
-      </div>
-      <div>
-        <img className={styles.image} src={background} alt="pikachu" />
       </div>
     </div>
   );
